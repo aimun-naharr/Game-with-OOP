@@ -19,6 +19,9 @@ export default class Tile {
 		this.#tileElement.style.setProperty('--text-lightness', `{backgroundLightness <=50? 90: 10}%` )
 
 	}
+	get value() {
+		return this.#value
+	   }
 	
 	set x(value) {
 		this.#x = value;
@@ -28,4 +31,19 @@ export default class Tile {
 		this.#y = value;
 		this.#tileElement.style.setProperty("--y", value);
 	}
+	remove() {
+		this.#tileElement.remove()
+	   }
+	 
+	   waitForTransition(animation = false) {
+		return new Promise(resolve => {
+		  this.#tileElement.addEventListener(
+		    animation ? "animationend" : "transitionend",
+		    resolve,
+		    {
+			 once: true,
+		    }
+		  )
+		})
+	   }
 }
